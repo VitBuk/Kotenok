@@ -9,8 +9,10 @@
 var express = require('express');
 var app = express();
 
+app.set('view engine', 'ejs');
+
 app.get('/', function(req, res) {
-    res.send('En Taro Tassadar!');
+    res.render('index');
 });
 
 // app.get('/test', function(req, res) {
