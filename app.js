@@ -19,6 +19,10 @@ app.get('/table', function(req, res) {
     res.render('table');
 });
 
+app.get('/about', function(req, res) {
+    res.render('about');
+});
+
 // app.get('/test', function(req, res) {
 //     res.send('En Taro Adun!');
 // });
