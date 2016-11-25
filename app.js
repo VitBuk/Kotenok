@@ -27,6 +27,10 @@ app.get('/increase', function(req, res) {
     res.render('increase');
 });
 
+app.get('/increase2', function(req, res) {
+    res.render('increase2');
+});
+
 app.get
 // app.get('/test', function(req, res) {
 //     res.send('En Taro Adun!');

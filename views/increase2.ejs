@@ -1,0 +1,20 @@
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+
+
+<script>
+    $("document").ready(function () {
+        $("#myLabel").css("color", "red");
+        $("#myButton").click(function () {
+            console.log("CLICKED");
+            var labelValue = parseInt($("#myLabel").text());
+            $("#myLabel").text(labelValue + 1);
+        });
+
+    });
+</script>
+
+<label id="myLabel">0</label>
+<button id="myButton">Click me</button>
