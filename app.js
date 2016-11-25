@@ -23,6 +23,11 @@ app.get('/about', function(req, res) {
     res.render('about');
 });
 
+app.get('/increase', function(req, res) {
+    res.render('increase');
+});
+
+app.get
 // app.get('/test', function(req, res) {
 //     res.send('En Taro Adun!');
 // });
