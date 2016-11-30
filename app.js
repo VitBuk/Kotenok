@@ -31,11 +31,6 @@ app.get('/increase2', function(req, res) {
     res.render('increase2');
 });
 
-app.get
-// app.get('/test', function(req, res) {
-//     res.send('En Taro Adun!');
-// });
-
 app.get('/test', function(req,res) {
     var kotenok = req.query.kotenok;
     res.send(kotenok);
