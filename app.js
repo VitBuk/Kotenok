@@ -43,3 +43,21 @@ app.post('/postTest', function(req, res){
 app.listen(process.env.PORT || 3000, function() {
     console.log('Listening to 3000');
 });
+
+/* entities */
+
+var player = {
+    "id": "int",
+    "name": "string",
+    "score": "int"
+};
+
+var game = {
+    "id": "int",
+    "players": "players",
+    "state": "state"
+};
+
+app.locals.games = [];
+app.locals.gameId = "int";
+app.locals.playerId = "int";
