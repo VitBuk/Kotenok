@@ -44,20 +44,44 @@ app.listen(process.env.PORT || 3000, function() {
     console.log('Listening to 3000');
 });
 
-/* entities */
+app.get('/create', function(req, res) {
+    app.locals.gameId++;
 
-var player = {
-    "id": "int",
-    "name": "string",
-    "score": "int"
-};
+    var player = {
+        "id": 1,
+        "name": "Valera",
+        "score": 0
+    };
 
-var game = {
-    "id": "int",
-    "players": "players",
-    "state": "state"
-};
+    var players = [player];
+    var game = {
+        "id": app.locals.gameId,
+        "players": players,
+        "state": "created"
+    };
+
+    window.location.replace("http://http://127.0.0.1:3000/" + game.id);
+});
+
+app.get('/play/:gameId', function (req,res) {
+
+});
 
 app.locals.games = [];
 app.locals.gameId = "int";
 app.locals.playerId = "int";
+
+/*    Entities
+
+ var player = {
+ "id": "int",
+ "name": "string",
+ "score": "int"
+ };
+
+ var game = {
+ "id": "int",
+ "players": "players",
+ "state": "state"
+ };
+ */
