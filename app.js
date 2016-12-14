@@ -11,40 +11,49 @@ var app = express();
 
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.get('/table', function(req, res) {
+app.get('/table', function (req, res) {
     res.render('table');
 });
 
-app.get('/about', function(req, res) {
+app.get('/about', function (req, res) {
     res.render('about');
 });
 
-app.get('/increase', function(req, res) {
+app.get('/increase', function (req, res) {
     res.render('increase');
 });
 
-app.get('/increase2', function(req, res) {
+app.get('/increase2', function (req, res) {
     res.render('increase2');
 });
 
-app.get('/test', function(req,res) {
+app.get('/increase3', function (req, res) {
+    res.render('increase3');
+});
+
+app.get('/increase3ZHE', function (req, res) {
+    var value = parseInt(req.query.value) + 1;
+    res.send(value.toString());
+});
+
+app.get('/test', function (req, res) {
     var kotenok = req.query.kotenok;
     res.send(kotenok);
 });
 
-app.post('/postTest', function(req, res){
+app.post('/postTest', function (req, res) {
     res.send('En Taro Andun!');
 });
 
-app.listen(process.env.PORT || 3000, function() {
+app.listen(process.env.PORT || 3000, function () {
     console.log('Listening to 3000');
 });
 
-app.get('/create', function(req, res) {
+app.get('/create', function (req, res) {
     app.locals.gameId++;
 
     var player = {
@@ -60,16 +69,19 @@ app.get('/create', function(req, res) {
         "state": "created"
     };
 
-    window.location.replace("http://http://127.0.0.1:3000/" + game.id);
+    res.writeHead(302, {
+        'Location': '/' + game.id
+    });
+    res.end();
 });
 
-app.get('/play/:gameId', function (req,res) {
+app.get('/play/:gameId', function (req, res) {
 
 });
 
 app.locals.games = [];
-app.locals.gameId = "int";
-app.locals.playerId = "int";
+app.locals.gameId = 0;
+app.locals.playerId = 0;
 
 /*    Entities
 
