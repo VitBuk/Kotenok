@@ -58,7 +58,7 @@ app.get('/create', function (req, res) {
 
     var player = {
         "id": 1,
-        "name": "Valera",
+        "name": "Tassadar",
         "score": 0
     };
 
@@ -69,14 +69,18 @@ app.get('/create', function (req, res) {
         "state": "created"
     };
 
+    app.locals.games[game.id] = game;
+
     res.writeHead(302, {
-        'Location': '/' + game.id
+        'Location': '/game/' + game.id
     });
     res.end();
 });
 
-app.get('/play/:gameId', function (req, res) {
-
+app.get('/game/:gameId', function (req, res) {
+    var game = app.locals.games[req.params.gameId];
+    var player = game.players[0];
+    res.render('play', {player: player.name});
 });
 
 app.locals.games = [];
