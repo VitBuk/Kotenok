@@ -83,6 +83,12 @@ app.get('/game/:gameId', function (req, res) {
     res.render('play', {game: game});
 });
 
+app.get('/play/:gameId/', function (req, res) {
+    var change = req.query.change;
+    var score = req.query.score;
+    var newScore = parseInt(change) + parseInt(score);
+    res.send(newScore.toString());
+});
 
 app.locals.games = [];
 app.locals.gameId = 0;

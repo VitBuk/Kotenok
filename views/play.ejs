@@ -1,3 +1,7 @@
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
 <!DOCTYPE html>
 <html>
 <% include templates/header.ejs %>
@@ -7,37 +11,70 @@
 </head>
 <body>
 
+<% var g = game%>
 <script>
-    var player = <%= game.players[0] %>
+    $("document").ready(function () {
+        var callback = function (data) {
+            console.log("callback");
+            $('#playScore').html(data);
+        };
 
-            $("document").ready(function () {
-                var callback = function (data) {
-                    console.log("callback");
-                    $('#playScore').html(data);
-                };
+        function changePlus10(player) {
+            console.log("changePlus10");
+            $.get('/play', {
+                playerId: player.id,
+                change: $('#plus10').text(),
+                score: $('#playScore').text()
+            }, callback);
+        };
 
-                $("#myButton").click(function () {
-                    $.get('/play/GAME_ID/score?userId=' + player.id + '&score_delta=' + $('plus10'), {
-                        change: $('#plus10').text(),
-                        value: $('#playScore').text()
-                    }, callback);
-                });
+        function changeMinus10(player) {
+            console.log("changeMinus10");
+            $.get('/play', {
+                playerId: player.id,
+                change: $('#minus10').text(),
+                score: $('#playScore').text()
+            }, callback);
+        };
 
-                $("#myButton").click(function () {
-                    $.get('/play/GAME_ID/score?userId=' + player.id + '&score_delta=' + $('minus10'), {
-                        change: $('#minus10').text(),
-                        value: $('#playScore').text()
-                    }, callback);
-                });
-            });
+
+    });
 </script>
 
 <div id="player"><%= game.players[0].name %></div>
 <label id="playScore">0</label>
-<button id="plus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs">-10</button>
-<button id="minus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs">+10</button>
+<button id="plus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changePlus10(<%=game.players[0]%>)">-10</button>
+<button id="minus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changeMinus10(<%=game.players[0]%>)">+10</button>
 
 <% include templates/footer.ejs %>
 
 </body>
 </html>
+
+<!--
+ $("document").ready(function () {
+        var callback = function (data) {
+            console.log("callback");
+            $('#playScore').html(data);
+        };
+
+        $("#plus10").click(function () {
+            console.log("Plus10 click");
+            $.get('/play', {
+                playerId: player.id,
+                change: $('#plus10').text(),
+                score: $('#playScore').text()
+            }, callback);
+        });
+
+        $("#minus10").click(function () {
+            console.log("Minus10 click");
+            $.get('/play', {
+                playerId: player.id,
+                change: $('#minus10').text(),
+                score: $('#playScore').text()
+            }, callback);
+        });
+    });
+
+    -->

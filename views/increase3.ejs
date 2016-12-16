@@ -11,6 +11,7 @@
         };
 
         $("#myButton").click(function () {
+            console.log("CLICKED")  ;
             $.get('/increase3ZHE', {value: $('#myLabel').text()}, callback);
         });
     });
