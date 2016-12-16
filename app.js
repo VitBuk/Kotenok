@@ -80,8 +80,9 @@ app.get('/create', function (req, res) {
 app.get('/game/:gameId', function (req, res) {
     var game = app.locals.games[req.params.gameId];
     var player = game.players[0];
-    res.render('play', {player: player.name});
+    res.render('play', {game: game});
 });
+
 
 app.locals.games = [];
 app.locals.gameId = 0;

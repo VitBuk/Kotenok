@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html>
-<% include templates/header.ejs%>
+<% include templates/header.ejs %>
 <head>
     <title>Play</title>
-    <% include templates/head.ejs%>
+    <% include templates/head.ejs %>
 </head>
 <body>
 
 <script>
+    var player = <%= game.players[0] %>
 
+            $("document").ready(function () {
+                var callback = function (data) {
+                    console.log("callback");
+                    $('#playScore').html(data);
+                };
+
+                $("#myButton").click(function () {
+                    $.get('/play/GAME_ID/score?userId=' + player.id + '&score_delta=' + $('plus10'), {
+                        change: $('#plus10').text(),
+                        value: $('#playScore').text()
+                    }, callback);
+                });
+
+                $("#myButton").click(function () {
+                    $.get('/play/GAME_ID/score?userId=' + player.id + '&score_delta=' + $('minus10'), {
+                        change: $('#minus10').text(),
+                        value: $('#playScore').text()
+                    }, callback);
+                });
+            });
 </script>
-<div id="player">Valera <%= player%></div>
+
+<div id="player"><%= game.players[0].name %></div>
 <label id="playScore">0</label>
-<button type="button" class="btn btn-default" class="btn btn-primary btn-xs">-10</button>
-<button type="button" class="btn btn-default" class="btn btn-primary btn-xs">+10</button>
+<button id="plus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs">-10</button>
+<button id="minus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs">+10</button>
 
-
-
-<% include templates/footer.ejs%>
+<% include templates/footer.ejs %>
 
 </body>
 </html>
