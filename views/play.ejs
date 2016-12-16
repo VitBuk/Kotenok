@@ -43,8 +43,8 @@
 
 <div id="player"><%= game.players[0].name %></div>
 <label id="playScore">0</label>
-<button id="plus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changePlus10(<%=game.players[0]%>)">-10</button>
-<button id="minus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changeMinus10(<%=game.players[0]%>)">+10</button>
+<button id="plus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changePlus10(<%=game.players[0].id%>)">-10</button>
+<button id="minus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changeMinus10(<%=game.players[0].id%>)">+10</button>
 
 <% include templates/footer.ejs %>
 
