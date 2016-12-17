@@ -12,69 +12,39 @@
 <body>
 
 <script>
-    $("document").ready(function () {
-        var callback = function (data) {
-            console.log("callback");
-            $('#playScore').html(data);
-        };
+    var game = <%- JSON.stringify(game) %>
+    var player = game.players[0];
+            $("document").ready(function () {
+                var callback = function (data) {
+                    console.log("callback");
+                    $('#playScore').html(data);
+                };
 
-        function changePlus10(player) {
-            console.log("changePlus10");
-            $.get('/play', {
-                playerId: player.id,
-                change: $('#plus10').text(),
-                score: $('#playScore').text()
-            }, callback);
-        };
+                $("#plus10").click(function () {
+                    console.log("playerId: " + player.id);
+                    $.get('/game/' + game.id + '/score', {
+                        playerId: player.id,
+                        change: $('#plus10').text(),
+                    }, callback);
+                });
 
-        function changeMinus10(player) {
-            console.log("changeMinus10");
-            $.get('/play', {
-                playerId: player.id,
-                change: $('#minus10').text(),
-                score: $('#playScore').text()
-            }, callback);
-        };
-
-
-    });
+                $("#minus10").click(function () {
+                    console.log("Minus10 click");
+                    $.get('/game/' + game.id + '/score', {
+                        playerId: player.id,
+                        change: $('#minus10').text(),
+                    }, callback);
+                });
+            });
 </script>
 
 <div id="player"><%= game.players[0].name %></div>
-<label id="playScore"><%= game.players[0].score%></label>
+<label id="playScore"><%= game.players[0].score %></label>
 
-<button id="plus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changePlus10(<%=game.players[0].id%>)">-10</button>
-<button id="minus10" type="button" class="btn btn-default" class="btn btn-primary btn-xs" onclick="changeMinus10(<%=game.players[0].id%>)">+10</button>
+<button id="plus10" type="button" class="btn btn-default">-10</button>
+<button id="minus10" type="button" class="btn btn-default">+10</button>
 
 <% include templates/footer.ejs %>
 
 </body>
 </html>
-
-<!--
- $("document").ready(function () {
-        var callback = function (data) {
-            console.log("callback");
-            $('#playScore').html(data);
-        };
-
-        $("#plus10").click(function () {
-            console.log("Plus10 click");
-            $.get('/play', {
-                playerId: player.id,
-                change: $('#plus10').text(),
-                score: $('#playScore').text()
-            }, callback);
-        });
-
-        $("#minus10").click(function () {
-            console.log("Minus10 click");
-            $.get('/play', {
-                playerId: player.id,
-                change: $('#minus10').text(),
-                score: $('#playScore').text()
-            }, callback);
-        });
-    });
-
-    -->

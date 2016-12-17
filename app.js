@@ -57,7 +57,7 @@ app.get('/create', function (req, res) {
     app.locals.gameId++;
 
     var player = {
-        "id": 1,
+        "id": 0,
         "name": "Tassadar",
         "score": 0
     };
@@ -85,8 +85,11 @@ app.get('/game/:gameId', function (req, res) {
 
 app.get('/game/:gameId/score', function (req, res) {
     var change = req.query.change;
-    var score = req.query.score;
+    console.log()
+    var player =app.locals.games[req.params.gameId].players[req.query.playerId];
+    var score = player.score;
     var newScore = parseInt(change) + parseInt(score);
+    player.score = newScore;
     res.send(newScore.toString());
 });
 
