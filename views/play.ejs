@@ -24,7 +24,7 @@
                     console.log("playerId: " + player.id);
                     $.get('/game/' + game.id + '/score', {
                         playerId: player.id,
-                        change: $('#plus10').text(),
+                        change: $('#plus10').text()
                     }, callback);
                 });
 
@@ -32,7 +32,7 @@
                     console.log("Minus10 click");
                     $.get('/game/' + game.id + '/score', {
                         playerId: player.id,
-                        change: $('#minus10').text(),
+                        change: $('#minus10').text()
                     }, callback);
                 });
             });
