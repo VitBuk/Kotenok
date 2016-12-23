@@ -7,50 +7,19 @@
  */
 
 var express = require('express');
+var path = require('path');
 var app = express();
 
 app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.get('/table', function (req, res) {
-    res.render('table');
-});
-
 app.get('/about', function (req, res) {
     res.render('about');
-});
-
-app.get('/increase', function (req, res) {
-    res.render('increase');
-});
-
-app.get('/increase2', function (req, res) {
-    res.render('increase2');
-});
-
-app.get('/increase3', function (req, res) {
-    res.render('increase3');
-});
-
-app.get('/increase3ZHE', function (req, res) {
-    var value = parseInt(req.query.value) + 1;
-    res.send(value.toString());
-});
-
-app.get('/test', function (req, res) {
-    var kotenok = req.query.kotenok;
-    res.send(kotenok);
-});
-
-app.post('/postTest', function (req, res) {
-    res.send('En Taro Andun!');
-});
-
-app.listen(process.env.PORT || 3000, function () {
-    console.log('Listening to 3000');
 });
 
 app.get('/create', function (req, res) {
@@ -62,13 +31,7 @@ app.get('/create', function (req, res) {
         "score": 0
     };
 
-    var player2 = {
-        "id": 1,
-        "name": "Valera",
-        "score": 0
-    };
-
-    var players = [player, player2];
+    var players = [player];
     var game = {
         "id": app.locals.gameId,
         "players": players,
@@ -114,3 +77,6 @@ app.locals.games = [];
 app.locals.gameId = 0;
 app.locals.playerId = 0;
 
+app.listen(process.env.PORT || 3000, function () {
+    console.log('Listening to 3000');
+});

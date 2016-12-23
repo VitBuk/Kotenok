@@ -20,21 +20,22 @@
             $('#playScore').html(data);
         };
 
-        $(".plus10").click(function () {
-            $.get('/game/' + game.id + '/score', {
-                playerId: player.id,
-                change: $('#minus10').text(),
-            }, callback);
-        });
+                $("#plus10").click(function () {
+                    console.log("playerId: " + player.id);
+                    $.get('/game/' + game.id + '/score', {
+                        playerId: player.id,
+                        change: $('#plus10').text()
+                    }, callback);
+                });
 
-        $(".minus10").click(function () {
-            console.log("playerId: " + player.id);
-            $.get('/game/' + game.id + '/score', {
-                playerId: player.id,
-                change: $('#plus10').text(),
-            }, callback);
-        });
-    });
+                $("#minus10").click(function () {
+                    console.log("Minus10 click");
+                    $.get('/game/' + game.id + '/score', {
+                        playerId: player.id,
+                        change: $('#minus10').text()
+                    }, callback);
+                });
+            });
 </script>
 
 <% for (var i = 0; i < 2; i++) { %>
