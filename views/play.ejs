@@ -14,35 +14,35 @@
 <script>
     var game = <%- JSON.stringify(game) %>
     var player = game.players[0];
-            $("document").ready(function () {
-                var callback = function (data) {
-                    console.log("callback");
-                    $('#playScore').html(data);
-                };
+    $("document").ready(function () {
+        var callback = function (data) {
+            console.log("callback");
+            $('#playScore').html(data);
+        };
 
-                $("#plus10").click(function () {
-                    console.log("playerId: " + player.id);
-                    $.get('/game/' + game.id + '/score', {
-                        playerId: player.id,
-                        change: $('#plus10').text(),
-                    }, callback);
-                });
+        $(".plus10").click(function () {
+            $.get('/game/' + game.id + '/score', {
+                playerId: player.id,
+                change: $('#minus10').text(),
+            }, callback);
+        });
 
-                $("#minus10").click(function () {
-                    console.log("Minus10 click");
-                    $.get('/game/' + game.id + '/score', {
-                        playerId: player.id,
-                        change: $('#minus10').text(),
-                    }, callback);
-                });
-            });
+        $(".minus10").click(function () {
+            console.log("playerId: " + player.id);
+            $.get('/game/' + game.id + '/score', {
+                playerId: player.id,
+                change: $('#plus10').text(),
+            }, callback);
+        });
+    });
 </script>
 
-<div id="player"><%= game.players[0].name %></div>
-<label id="playScore"><%= game.players[0].score %></label>
-
-<button id="plus10" type="button" class="btn btn-default">-10</button>
-<button id="minus10" type="button" class="btn btn-default">+10</button>
+<% for (var i = 0; i < 2; i++) { %>
+    <div id="player<%=i%>"><%= game.players[i].name %></div>
+    <label id="playScore<%=i%>"><%= game.players[i].score %></label>
+    <button id="plus10<%=i%>" type="button" class="btn btn-default minus10">-10</button>
+    <button id="minus10<%=i%>" type="button" class="btn btn-default plus10">+10</button>
+<% } %>
 
 <% include templates/footer.ejs %>
 

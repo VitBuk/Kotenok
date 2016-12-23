@@ -62,7 +62,13 @@ app.get('/create', function (req, res) {
         "score": 0
     };
 
-    var players = [player];
+    var player2 = {
+        "id": 1,
+        "name": "Valera",
+        "score": 0
+    };
+
+    var players = [player, player2];
     var game = {
         "id": app.locals.gameId,
         "players": players,
@@ -85,8 +91,7 @@ app.get('/game/:gameId', function (req, res) {
 
 app.get('/game/:gameId/score', function (req, res) {
     var change = req.query.change;
-    console.log()
-    var player =app.locals.games[req.params.gameId].players[req.query.playerId];
+    var player = app.locals.games[req.params.gameId].players[req.query.playerId];
     var score = player.score;
     var newScore = parseInt(change) + parseInt(score);
     player.score = newScore;
@@ -98,21 +103,14 @@ app.get('/watch/:gameId', function (req, res) {
     res.render('watch', {game: game});
 });
 
+app.use(function (req, res, next) {
+    console.log('Time:', Date.now());
+    console.log('Request Type:', req.method);
+    next()
+});
+
+
 app.locals.games = [];
 app.locals.gameId = 0;
 app.locals.playerId = 0;
 
-/*    Entities
-
- var player = {
- "id": "int",
- "name": "string",
- "score": "int"
- };
-
- var game = {
- "id": "int",
- "players": "players",
- "state": "state"
- };
- */
