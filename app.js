@@ -31,7 +31,13 @@ app.get('/create', function (req, res) {
         "score": 0
     };
 
-    var players = [player];
+    var player2 = {
+        "id": 1,
+        "name": "Valera",
+        "score": 0
+    };
+
+    var players = [player, player2];
     var game = {
         "id": app.locals.gameId,
         "players": players,

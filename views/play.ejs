@@ -13,36 +13,37 @@
 
 <script>
     var game = <%- JSON.stringify(game) %>
-    var player = game.players[0];
     $("document").ready(function () {
         var callback = function (data) {
             console.log("callback");
-            $('#playScore').html(data);
+//            $('#playScore').html(data);
         };
 
-                $("#plus10").click(function () {
-                    console.log("playerId: " + player.id);
-                    $.get('/game/' + game.id + '/score', {
-                        playerId: player.id,
-                        change: $('#plus10').text()
-                    }, callback);
-                });
+        $(".plus10").click(function () {
+            var buttonId = JSON.stringify($(this).attr('id'));
+            var playerId = buttonId.split("_")[1].replace('"',"");
+            console.log("playerId: " + playerId);
+            $.get('/game/' + game.id + '/score', {
+                playerId: playerId,
+                change: $('#plus10').text()
+            }, callback);
+        });
 
-                $("#minus10").click(function () {
-                    console.log("Minus10 click");
-                    $.get('/game/' + game.id + '/score', {
-                        playerId: player.id,
-                        change: $('#minus10').text()
-                    }, callback);
-                });
-            });
+        $(".minus10").click(function () {
+            console.log("Minus10 click");
+            $.get('/game/' + game.id + '/score', {
+                playerId: player.id,
+                change: $('#minus10').text()
+            }, callback);
+        });
+    });
 </script>
 
-<% for (var i = 0; i < 2; i++) { %>
-    <div id="player<%=i%>"><%= game.players[i].name %></div>
-    <label id="playScore<%=i%>"><%= game.players[i].score %></label>
-    <button id="plus10<%=i%>" type="button" class="btn btn-default minus10">-10</button>
-    <button id="minus10<%=i%>" type="button" class="btn btn-default plus10">+10</button>
+<% for (var i = 0; i < game.players.length; i++) { %>
+<div id="player_<%= i %>"><%= game.players[i].name %></div>
+<label id="playScore_<%= i %>"><%= game.players[i].score %></label>
+<button id="plus10_<%= i %>" type="button" class="btn btn-default minus10">-10</button>
+<button id="minus10_<%= i %>" type="button" class="btn btn-default plus10">+10</button>
 <% } %>
 
 <% include templates/footer.ejs %>
