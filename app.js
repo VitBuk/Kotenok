@@ -64,7 +64,7 @@ app.get('/game/:gameId/score', function (req, res) {
     var score = player.score;
     var newScore = parseInt(change) + parseInt(score);
     player.score = newScore;
-    res.send(newScore.toString());
+    res.send({"playerId": player.id, "playerScore": newScore.toString()});
 });
 
 app.get('/watch/:gameId', function (req, res) {

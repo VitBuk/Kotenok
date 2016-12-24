@@ -13,30 +13,32 @@
 
 <script>
     var game = <%- JSON.stringify(game) %>
-    $("document").ready(function () {
-        var callback = function (data) {
-            console.log("callback");
-//            $('#playScore').html(data);
-        };
+            $("document").ready(function () {
+                var callback = function (data) {
+                    console.log("callback playerId: " + data.playerId + "callback playerScore: " + data.playerScore );
+                    $('#playScore').html(data);
+                };
 
-        $(".plus10").click(function () {
-            var buttonId = JSON.stringify($(this).attr('id'));
-            var playerId = buttonId.split("_")[1].replace('"',"");
-            console.log("playerId: " + playerId);
-            $.get('/game/' + game.id + '/score', {
-                playerId: playerId,
-                change: $('#plus10').text()
-            }, callback);
-        });
+                $(".plus10").click(function () {
+                    var buttonId = JSON.stringify($(this).attr('id'));
+                    var playerId = buttonId.split("_")[1].replace('"', "");
+                    console.log("playerId: " + playerId);
+                    $.get('/game/' + game.id + '/score', {
+                        playerId: playerId,
+                        change: $(this).text()
+                    }, callback);
+                });
 
-        $(".minus10").click(function () {
-            console.log("Minus10 click");
-            $.get('/game/' + game.id + '/score', {
-                playerId: player.id,
-                change: $('#minus10').text()
-            }, callback);
-        });
-    });
+                $(".minus10").click(function () {
+                    var buttonId = JSON.stringify($(this).attr('id'));
+                    var playerId = buttonId.split("_")[1].replace('"', "");
+                    console.log("playerId: " + playerId);
+                    $.get('/game/' + game.id + '/score', {
+                        playerId: playerId,
+                        change: $(this).text()
+                    }, callback);
+                });
+            });
 </script>
 
 <% for (var i = 0; i < game.players.length; i++) { %>
