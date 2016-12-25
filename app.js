@@ -53,22 +53,37 @@ app.get('/create', function (req, res) {
 });
 
 app.get('/game/:gameId', function (req, res) {
-    var game = app.locals.games[req.params.gameId];
+    var game = gameByReq(req);
     var player = game.players[0];
     res.render('play', {game: game});
 });
 
 app.get('/game/:gameId/score', function (req, res) {
     var change = req.query.change;
-    var player = app.locals.games[req.params.gameId].players[req.query.playerId];
+    var player = gameByReq(req).players[req.query.playerId];
     var score = player.score;
     var newScore = parseInt(change) + parseInt(score);
     player.score = newScore;
     res.send({"playerId": player.id, "playerScore": newScore.toString()});
 });
 
+app.get('/game/:gameId/newPlayer', function (req, res) {
+
+    var player = {
+        "id": gameByReq(req).players.length,
+        "name": "Jul`ka",
+        "score": 0
+    };
+
+
+});
+
+function gameByReq(req) {
+    return app.locals.games[req.params.gameId];
+}
+
 app.get('/watch/:gameId', function (req, res) {
-    var game = app.locals.games[req.params.gameId];
+    var game = gameByReq(req);
     res.render('watch', {game: game});
 });
 
