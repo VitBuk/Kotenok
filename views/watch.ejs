@@ -11,8 +11,10 @@
 </head>
 <body>
 
-<div id="player"><%= game.players[0].name %></div>
-<label id="playScore"><%= game.players[0].score%></label>
+<% for (var i = 0; i < game.players.length; i++) { %>
+<div id="player"><%= game.players[i].name %></div>
+<label id="playScore"><%= game.players[i].score%></label>
+<% } %>
 
 <% include templates/footer.ejs %>
 

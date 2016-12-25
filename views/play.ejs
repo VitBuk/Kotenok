@@ -16,7 +16,7 @@
             $("document").ready(function () {
                 var callback = function (data) {
                     console.log("callback playerId: " + data.playerId + "callback playerScore: " + data.playerScore );
-                    $('#playScore').html(data);
+                    $('#playScore_' + data.playerId).html(data.playerScore);
                 };
 
                 $(".plus10").click(function () {
