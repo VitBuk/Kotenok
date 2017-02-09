@@ -38,6 +38,11 @@
                         change: $(this).text()
                     }, callback);
                 });
+
+                $("#newPlayer").click(function() {
+                    console.log("onclick newPlayer");
+                    $.get('/game/' + game.id + '/newPlayer');
+                });
             });
 </script>
 
@@ -48,6 +53,6 @@
 <button id="minus10_<%= i %>" type="button" class="btn btn-default plus10">+10</button>
 <% } %>
 
-
+<button id="newPlayer"> add player</button>
 </body>
 </html>
