@@ -54,7 +54,6 @@ app.get('/create', function (req, res) {
 
 app.get('/game/:gameId', function (req, res) {
     var game = gameByReq(req);
-    console.log(game);
     res.render('play', {game: game});
 });
 
@@ -75,9 +74,8 @@ app.get('/game/:gameId/newPlayer', function (req, res) {
         "score": 0
     };
 
-    app.locals.games[req.params.gameId].players.push(player);
-    console.log("game:" + game);
-    res.render('play', {game: game});
+    game.players.push(player);
+    res.send(player);
 });
 
 function gameByReq(req) {

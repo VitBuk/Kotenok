@@ -39,9 +39,13 @@
                     }, callback);
                 });
 
+                var newPlayerCallback = function(data) {
+                    console.log(data);
+                };
+
                 $("#newPlayer").click(function() {
                     console.log("onclick newPlayer");
-                    $.get('/game/' + game.id + '/newPlayer');
+                    $.get('/game/' + game.id + '/newPlayer', newPlayerCallback);
                 });
             });
 </script>
