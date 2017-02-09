@@ -53,13 +53,14 @@ app.get('/create', function (req, res) {
 });
 
 app.get('/game/:gameId', function (req, res) {
-    var game = app.locals.gameByReq;
+    var game = gameByReq(req);
+    console.log(game);
     res.render('play', {game: game});
 });
 
 app.get('/game/:gameId/score', function (req, res) {
     var change = req.query.change;
-    var player = app.locals.gameByReq.players[req.query.playerId];
+    var player = gameByReq(req).players[req.query.playerId];
     var score = player.score;
     var newScore = parseInt(change) + parseInt(score);
     player.score = newScore;
@@ -67,24 +68,24 @@ app.get('/game/:gameId/score', function (req, res) {
 });
 
 app.get('/game/:gameId/newPlayer', function (req, res) {
+    var game = gameByReq(req);
     var player = {
-        "id": app.locals.gameByReq.players.length,
+        "id": game.players.length,
         "name": "Jul`ka",
         "score": 0
     };
 
     app.locals.games[req.params.gameId].players.push(player);
-    var game = gamyByReq(req);
     console.log("game:" + game);
-    res.render('play', {game: app.locals.gameByReq});
+    res.render('play', {game: game});
 });
 
 function gameByReq(req) {
     return app.locals.games[req.params.gameId];
-};
+}
 
 app.get('/watch/:gameId', function (req, res) {
-    var game = app.locals.gameByReq;
+    var game = gameByReq(req);
     res.render('watch', {game: game});
 });
 
@@ -94,9 +95,6 @@ app.use(function (req, res, next) {
     next()
 });
 
-app.locals.gameByReq = function gameByReq(req) {
-    return app.locals.games[req.params.gameId];
-};
 app.locals.games = [];
 app.locals.gameId = 0;
 app.locals.playerId = 0;
