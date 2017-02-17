@@ -22,10 +22,11 @@
 
             for (var i = 0; i<data.players.length; i++) {
                 var player = data.players[i];
-                console.log(player);
+                console.log("id" + player.id);
+                console.log("score" + player.score);
                 $('#playScore_' + player.id).html(player.score);
             }
-        }
+        };
 
         setInterval(function () {
             $.get('/watch/' + game.id + '/game', callback)
@@ -34,8 +35,9 @@
 </script>
 
 <% for (var i = 0; i < game.players.length; i++) { %>
-<div id="player_"><%= game.players[i].name %></div>
-<label id="playScore_"><%= game.players[i].score%></label>
+<% var player = game.players[i]%>
+<div id="player_<%= i %>"> <%= player.name %></div>
+<label id="playScore_<%= i %>"> <%= player.score%></label>
 <% } %>
 
 <div id="players"></div>
