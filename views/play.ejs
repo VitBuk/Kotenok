@@ -15,12 +15,14 @@
     var game = <%- JSON.stringify(game) %>
             $("document").ready(function () {
                 var callback = function (data) {
+                    console.log("callback playerId: " + data.playerId + "callback playerScore: " + data.playerScore);
                     $('#playScore_' + data.playerId).html(data.playerScore);
                 };
 
                 $(".plus10").click(function () {
                     var buttonId = JSON.stringify($(this).attr('id'));
                     var playerId = buttonId.split("_")[1].replace('"', "");
+                    console.log("playerId: " + playerId);
                     $.get('/game/' + game.id + '/score', {
                         playerId: playerId,
                         change: $(this).text()
@@ -30,33 +32,38 @@
                 $(".minus10").click(function () {
                     var buttonId = JSON.stringify($(this).attr('id'));
                     var playerId = buttonId.split("_")[1].replace('"', "");
+                    console.log("playerId: " + playerId);
                     $.get('/game/' + game.id + '/score', {
                         playerId: playerId,
                         change: $(this).text()
                     }, callback);
                 });
 
-                var newPlayerCallback = function(data) {
+                var newPlayerCallback = function (data) {
                     console.log(data);
+                    $('#players').append('<div id="player_' + data.id + '">' + data.name +'</div>');
+                    $('#player_' + data.id).append('<label id="playScore_' + data.id+'">' + data.score + '</label>');
+                    $('#player_' + data.id).append('<button id="plus10_' + data.id + 'type="button" class="btn btn-default minus10"> -10</button>');
+                    $('#player_' + data.id).append('<button id="plus10_' + data.id + 'type="button" class="btn btn-default minus10"> +10</button>');
+
                 };
 
-                $("#newPlayer").click(function() {
+                $("#newPlayer").click(function () {
+                    console.log("onclick newPlayer");
                     $.get('/game/' + game.id + '/newPlayer', newPlayerCallback);
                 });
             });
 </script>
 
-<!--TODO: id data instead of parsing-->
 <% for (var i = 0; i < game.players.length; i++) { %>
-<div class="player" id="player_<%= i %>">
-    <div id="playerName_<%= i %>"><%= game.players[i].name %></div>
-    <label id="playScore_<%= i %>"><%= game.players[i].score %></label>
-    <button id="plus10_<%= i %>" type="button" class="btn btn-default minus10">-10</button>
-    <button id="minus10_<%= i %>" type="button" class="btn btn-default plus10">+10</button>
-</div>
-
+<div id="player_<%= i %>"><%= game.players[i].name %></div>
+<label id="playScore_<%= i %>"><%= game.players[i].score %></label>
+<button id="plus10_<%= i %>" type="button" class="btn btn-default minus10">-10</button>
+<button id="minus10_<%= i %>" type="button" class="btn btn-default plus10">+10</button>
 <% } %>
 
-<button class="btn btn-primary newPlayer" id="newPlayer">Add player</button>
+<button id="newPlayer"> add player</button>
+
+<div id="players"></div>
 </body>
 </html>

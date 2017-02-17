@@ -54,7 +54,7 @@ app.get('/create', function (req, res) {
 
 app.get('/game/:gameId', function (req, res) {
     var game = gameByReq(req);
-    res.render('play', {game: game});
+    res.render('play', {game: game, data: 'hello'});
 });
 
 app.get('/game/:gameId/score', function (req, res) {
