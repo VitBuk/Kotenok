@@ -87,6 +87,11 @@ app.get('/watch/:gameId', function (req, res) {
     res.render('watch', {game: game});
 });
 
+app.get('/watch/:gameId/game', function (req, res) {
+    var game = gameByReq(req);
+    res.send(game);
+});
+
 app.use(function (req, res, next) {
     console.log('Time:', Date.now());
     console.log('Request Type:', req.method);

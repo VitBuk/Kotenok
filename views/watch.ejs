@@ -11,11 +11,34 @@
 </head>
 <body>
 
+<script>
+    var game = <%- JSON.stringify(game) %>
+    $("document").ready(function () {
+        var callback = function (data) {
+            console.log("hello");
+            console.log(data.players[0].score);
+            console.log(data.players[1].score);
+            console.log(data.players[2].score);
+
+            for (var i = 0; i<data.players.length; i++) {
+                var player = data.players[i];
+                console.log(player);
+                $('#playScore_' + player.id).html(player.score);
+            }
+        }
+
+        setInterval(function () {
+            $.get('/watch/' + game.id + '/game', callback)
+        }, 2000);
+    });
+</script>
+
 <% for (var i = 0; i < game.players.length; i++) { %>
-<div id="player"><%= game.players[i].name %></div>
-<label id="playScore"><%= game.players[i].score%></label>
+<div id="player_"><%= game.players[i].name %></div>
+<label id="playScore_"><%= game.players[i].score%></label>
 <% } %>
 
+<div id="players"></div>
 <% include templates/footer.ejs %>
 
 </body>
