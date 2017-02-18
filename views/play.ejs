@@ -46,12 +46,12 @@
                         var newPlayerCallback = function (data) {
                             console.log("Data id:" + data.id);
                             $('#players').append('<div id="player_' + data.id + '">' + data.name + '</div>');
-                            $('#player_' + data.id).append('<label id="playScore_' + data.id + '">' + data.score + '</label>');
-                            $('#player_' + data.id).append('<button id="minus10_' + data.id + '" type="button" class="btn btn-default minus10"> -10</button>');
+                            var player = $('#player_' + data.id);
+                            player.append('<label id="playScore_' + data.id + '">' + data.score + '</label>');
+                            player.append('<button id="minus10_' + data.id + '" type="button" class="btn btn-default minus10"> -10</button>');
                             $('#minus10_' + data.id).click(minus10clickFunction);
-                            $('#player_' + data.id).append('<button id="plus10_' + data.id + '" type="button" class="btn btn-default plus10"> +10</button>');
+                            player.append('<button id="plus10_' + data.id + '" type="button" class="btn btn-default plus10"> +10</button>');
                             $('#plus10_' + data.id).click(plus10clickFunction);
-
                         };
 
                         $("#newPlayer").click(function () {
@@ -61,15 +61,19 @@
                     });
 </script>
 
+<div id="players">
 <% for (var i = 0; i < game.players.length; i++) { %>
-<div id="player_<%= i %>"><%= game.players[i].name %></div>
-<label id="playScore_<%= i %>"><%= game.players[i].score %></label>
-<button id="plus10_<%= i %>" type="button" class="btn btn-default minus10">-10</button>
-<button id="minus10_<%= i %>" type="button" class="btn btn-default plus10">+10</button>
+    <% var player = game.players[i]; %>
+    <div class="player" id="player_<%= i %>">
+        <div id="playerName_<%= i%>"><%= player.name %></div>
+        <label id="playScore_<%= i %>"><%= player.score %></label>
+        <button id="plus10_<%= i %>" type="button" class="btn btn-default minus10">-10</button>
+        <button id="minus10_<%= i %>" type="button" class="btn btn-default plus10">+10</button>
+    </div>
 <% } %>
+</div>
 
-<button id="newPlayer"> add player</button>
+<button id="newPlayer">Add player</button>
 
-<div id="players"></div>
 </body>
 </html>
